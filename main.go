@@ -14,18 +14,18 @@ func main() {
 	// define cmd line flags
 	tags := flag.String("tags", "", "Tags to search for")
 	maxConcurrents := flag.Int("concurrents", 5, "Maximum amount of concurrent downloads")
-	postLimit := flag.Int("limit", 10, "Maximum amount of posts to grab from e621")
-	saveDirectory := flag.String("out", "dl", "The directory to write the downloaded posts to")
+	postLimit := flag.Int("limit", 99999999, "Maximum amount of posts to grab from e621")
+	saveDirectory := flag.String("out", "e621", "The directory to write the downloaded posts to")
 	sfw := flag.Bool("sfw", false, "Download posts from e926 instead of e621")
-	pages := flag.Int("pages", 1, "Number of search result pages to download")
 
 	flag.Parse()
 
-	fmt.Printf("Fetching posts for \"%s\" (limit=%d, pages=%d)\n", *tags, *postLimit, *pages)
+	fmt.Printf("Fetching posts for \"%s\" (limit=%d)\n", *tags, *postLimit)
 
 	var allPosts []e621.Post
 
-	for i := 1; i <= *pages; i++ {
+	i := 1
+	for {
 		fmt.Printf("Fetching page %d/%d...", i, *pages)
 
 		posts, err := e621.GetPostsForTags(*tags, *postLimit, *sfw, i)
@@ -36,7 +36,13 @@ func main() {
 
 		fmt.Printf(" fetched %d posts\n", len(posts))
 
+		if len(posts) == 0 {
+			break
+		}
+		
 		allPosts = append(allPosts, posts...)
+		
+		i++
 	}
 
 	fmt.Printf("Found %d posts. Starting download with %d workers...\n\n", len(allPosts), *maxConcurrents)
