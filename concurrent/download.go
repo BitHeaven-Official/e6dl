@@ -123,8 +123,7 @@ func downloadPost(post *e621.Post, directory string) error {
 	
 	if _, err := os.Stat(savePath); err == nil {
 		fmt.Print("File exists, skip...\n")
-	}
-	else {
+	} else {
 		resp, err := e621.HTTPGet(post.File.URL)
 		if err != nil {
 			return err
