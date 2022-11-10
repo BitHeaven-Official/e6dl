@@ -26,7 +26,7 @@ func main() {
 
 	i := 1
 	for {
-		fmt.Printf("Fetching page %d/%d...", i, *pages)
+		fmt.Printf("Fetching page %d...", i)
 
 		posts, err := e621.GetPostsForTags(*tags, *postLimit, *sfw, i)
 		if err != nil {
