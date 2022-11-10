@@ -9,7 +9,7 @@ import (
 
 	"github.com/dustin/go-humanize"
 	"github.com/logrusorgru/aurora"
-	"github.com/tjhorner/e6dl/e621"
+	"github.com/BitHeaven-Official/e6dl/e621"
 )
 
 // workState stores the state of all the jobs and
