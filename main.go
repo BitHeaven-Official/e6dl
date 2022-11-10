@@ -6,8 +6,8 @@ import (
 	"os"
 	"path"
 
-	"github.com/tjhorner/e6dl/concurrent"
-	"github.com/tjhorner/e6dl/e621"
+	"github.com/BitHeaven-Official/e6dl/concurrent"
+	"github.com/BitHeaven-Official/e6dl/e621"
 )
 
 func main() {
