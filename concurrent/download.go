@@ -120,6 +120,8 @@ func getSavePath(post *e621.Post, directory *string) string {
 
 func downloadPost(post *e621.Post, directory string) error {
 	savePath := getSavePath(post, &directory)
+	
+	fmt.Print(post)
 
 	resp, err := e621.HTTPGet(post.File.URL)
 	if err != nil {
