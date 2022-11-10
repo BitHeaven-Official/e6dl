@@ -1,4 +1,4 @@
-module github.com/tjhorner/e6dl
+module github.com/BitHeaven-Official/e6dl
 
 go 1.14
 
