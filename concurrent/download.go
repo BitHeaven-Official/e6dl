@@ -122,6 +122,7 @@ func downloadPost(post *e621.Post, directory string) error {
 	savePath := getSavePath(post, &directory)
 	
 	fmt.Print(post.File.URL)
+	fmt.Print(savePath)
 
 	resp, err := e621.HTTPGet(post.File.URL)
 	if err != nil {
