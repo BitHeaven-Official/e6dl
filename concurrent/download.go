@@ -121,25 +121,28 @@ func getSavePath(post *e621.Post, directory *string) string {
 func downloadPost(post *e621.Post, directory string) error {
 	savePath := getSavePath(post, &directory)
 	
-	fmt.Print(post.File.URL)
-	fmt.Print(savePath)
-
-	resp, err := e621.HTTPGet(post.File.URL)
-	if err != nil {
-		return err
+	if _, err := os.Stat(savePath); err == nil {
+		fmt.Print("File exists, skip...\n")
 	}
+	else {
+		resp, err := e621.HTTPGet(post.File.URL)
+		if err != nil {
+			return err
+		}
 
-	defer resp.Body.Close()
+		defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return err
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			return err
+		}
+
+		err = ioutil.WriteFile(savePath, body, 0755)
+		if err != nil {
+			return err
+		}
 	}
-
-	err = ioutil.WriteFile(savePath, body, 0755)
-	if err != nil {
-		return err
-	}
+	
 
 	return nil
 }
